@@ -194,7 +194,9 @@ You will create a json file that describes the structure of the input rootfiles.
 First, from your home directory in ifdb01,  go to bigdata/ingestion/uproot/nanoaod, or, instead of nanoaod, panda, bacon ecc depending on the type of input file you will be uploading.
 
 ```bash
-cd $HOME/bigdata/ingestion/uproot/yourFileFormat
+cd $HOME/bigdata/ingestion/uproot/
+git clone https://github.com/CoffeaTeam/CoffeaHarvester.git
+cd CoffeaHarvester/striped
 ```
 
 To create the schema you need uproot version 3.2.13
@@ -243,5 +245,4 @@ And run this script:
 ```bash
 python loadDataset.py  -d <dataset-name> <path to dataset > <top of root tree> <bucket name>
 ```
-
 Where <path to dataset> is the full path to the directory containing the root files to be uploaded and <top of root tree> is the top directory inside the root file (it is Events in nanoAOD)
