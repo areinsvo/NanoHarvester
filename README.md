@@ -2,11 +2,11 @@
 
 ### Set up CMSSW
 
-`
+``
 cmsrel CMSSW_9_4_11_cand2
 cd CMSSW_9_4_11_cand2/src
 cmsenv
-`
+``
 
 ### Hack NanoAOD framework (when running over 94X MiniAODv3)
 
