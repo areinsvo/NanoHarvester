@@ -194,7 +194,7 @@ You will create a json file that describes the structure of the input rootfiles.
 First, from your home directory in ifdb01,  go to bigdata/ingestion/uproot/nanoaod, or, instead of nanoaod, panda, bacon ecc depending on the type of input file you will be uploading.
 
 ```bash
-cd bigdata/ingestion/uproot/yourFileFormat
+cd $HOME/bigdata/ingestion/uproot/yourFileFormat
 ```
 
 To create the schema you need uproot version 3.2.13
