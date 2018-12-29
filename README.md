@@ -191,7 +191,7 @@ Assuming your files are already copied, you can move forward with the following 
 
 You will create a json file that describes the structure of the input rootfiles. You should expect a different schema for data and MC simulations. Schema can be also different due to specific reasons. For instance, in NanoAOD trigger bits are stored singly and the list of triggers can vary in each file. Taking this into account, you can generate the schema as follows.
 
-First, from your home directory in ifdb01,  go to bigdata/ingestion/uproot/nanoaod, or, instead of nanoaod, panda, bacon ecc depending on the type of input file you will be uploading.
+First, from log into ifdb01 and clone the harvester.
 
 ```bash
 cd $HOME/bigdata/ingestion/uproot/
