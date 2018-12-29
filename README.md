@@ -246,3 +246,11 @@ And run this script:
 python loadDataset.py  -d <dataset-name> <path to dataset > <top of root tree> <bucket name>
 ```
 Where <path to dataset> is the full path to the directory containing the root files to be uploaded and <top of root tree> is the top directory inside the root file (it is Events in nanoAOD)
+
+If an error occurs during an upload you should remove the dataset and recreate it before re-uploading. To remove a dataset from the database use:
+
+```bash
+python delete_dataset.py <bucket_name> <dataset_name>
+```
+
+You might need to run this command more than once, until output displays “0 items removed”
