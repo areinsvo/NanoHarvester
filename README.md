@@ -42,11 +42,11 @@ cd PhysicsTools/NanoTuples/test
 ```
 MC (80X, MiniAODv2):
 
-`bash
+```bash
 cmsDriver.py mc -n -1 --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions 94X_mcRun2_asymptotic_v2 --step NANO --nThreads 4 --era Run2_2016,run2_miniAOD_80XLegacy --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeMC --filein file:step-1.root --fileout file:nano.root --no_exec
 
 # test file: /store/mc/RunIISummer16MiniAODv2/ttHToCC_M125_TuneCUETP8M2_13TeV_powheg_pythia8/MINIAODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/50000/106F8E1B-23ED-E711-9F58-0025905B861C.root
-`
+```
 
 Data (2016 ReReco):
 
@@ -130,11 +130,15 @@ Global tags and eras are gotten from: https://twiki.cern.ch/twiki/bin/view/CMSPu
 
 For MC:
 
-`python crab.py -p mc_NANO.py -o /store/group/lpccoffea/coffeabeans/nano_mc_[version] -t NanoTuples-[version] -i mc_[ABC].txt --num-cores 4 --send-external -s EventAwareLumiBased -n 50000 --work-area crab_projects_mc_[ABC] --dryrun`
+```bash
+python crab.py -p mc_NANO.py -o /store/group/lpccoffea/coffeabeans/nano_mc_[version] -t NanoTuples-[version] -i mc_[ABC].txt --num-cores 4 --send-external -s EventAwareLumiBased -n 50000 --work-area crab_projects_mc_[ABC] --dryrun
+```
 
 For data:
 
-`python crab.py -p data_NANO.py -o /store/group/lpccoffea/coffeabeans/nano_data_[version] -t NanoTuples-[version] -i data.txt --num-cores 4 --send-external -s EventAwareLumiBased -n 50000 --work-area crab_projects_data --dryrun`
+```bash
+python crab.py -p data_NANO.py -o /store/group/lpccoffea/coffeabeans/nano_data_[version] -t NanoTuples-[version] -i data.txt --num-cores 4 --send-external -s EventAwareLumiBased -n 50000 --work-area crab_projects_data --dryrun
+```
 
 A JSON file can be applied for data samples with the `-j` options. By default, we use the golden JSON for 2016:
 
@@ -176,8 +180,10 @@ To upload datasets on the database ask Igor for an account by email (ivm@fnal.go
 
 To the Striped machine you need to have a FNAL computing account. Then:
 
+```bash
 kinit FNAL_USERNAME@FNAL.GOV
 ssh FNAL_USERNAME@ifdb01.fnal.gov 
+```
 
 Assuming your files are already copied, you can move forward with the following steps.
 
@@ -187,15 +193,21 @@ You will create a json file that describes the structure of the input rootfiles.
 
 First, from your home directory in ifdb01,  go to bigdata/ingestion/uproot/nanoaod, or, instead of nanoaod, panda, bacon ecc depending on the type of input file you will be uploading.
 
->> cd bigdata/ingestion/uproot/yourFileFormat
+```bash
+cd bigdata/ingestion/uproot/yourFileFormat
+```
 
 To create the schema you need uproot version 3.2.13
 
->> pip install uproot==3.2.13
+```bash
+pip install uproot==3.2.13
+```
 
 And source the scripts
 
->> source setup.sh
+```bash
+source setup.sh
+```
 
 Now run the following script
 
@@ -217,10 +229,14 @@ Schema is the previously created schema json file and dataset name is whatever n
 
 Finally to upload the dataset make sure you are back with uproot 2.8.17
 
->> pip install uproot==2.8.17 
+```bash
+pip install uproot==2.8.17 
+```
 
 And run this script:
 
->>python loadDataset.py  -d <dataset-name> <path to dataset > <top of root tree> <bucket name>
+```bash
+python loadDataset.py  -d <dataset-name> <path to dataset > <top of root tree> <bucket name>
+```
 
 Where <path to dataset> is the full path to the directory containing the root files to be uploaded and <top of root tree> is the top directory inside the root file (it is Events in nanoAOD)
