@@ -2,11 +2,11 @@
 
 ### Set up CMSSW
 
-```bash
+`
 cmsrel CMSSW_9_4_11_cand2
 cd CMSSW_9_4_11_cand2/src
 cmsenv
-```
+`
 
 ### Hack NanoAOD framework (when running over 94X MiniAODv3)
 
@@ -169,3 +169,58 @@ More options of this `crab.py` script can be found with:
 ```bash
 ./crab.py -h
 ```
+
+### Upload to the Striped database
+
+To upload datasets on the database ask Igor for an account by email (ivm@fnal.gov). Provide you FNAL username in the request. Input rootfiles need to be copied first the Striped machine ifdb01 and then into the database. The capability to read remotely input rootfiles is currenlty under development.
+
+To the Striped machine you need to have a FNAL computing account. Then:
+
+kinit FNAL_USERNAME@FNAL.GOV
+ssh FNAL_USERNAME@ifdb01.fnal.gov 
+
+Assuming your files are already copied, you can move forward with the following steps.
+
+**Step 1**: generate the input file schema
+
+You will create a json file that describes the structure of the input rootfiles. You should expect a different schema for data and MC simulations. Schema can be also different due to specific reasons. For instance, in NanoAOD trigger bits are stored singly and the list of triggers can vary in each file. Taking this into account, you can generate the schema as follows.
+
+First, from your home directory in ifdb01,  go to bigdata/ingestion/uproot/nanoaod, or, instead of nanoaod, panda, bacon ecc depending on the type of input file you will be uploading.
+
+>> cd bigdata/ingestion/uproot/yourFileFormat
+
+To create the schema you need uproot version 3.2.13
+
+>> pip install uproot==3.2.13
+
+And source the scripts
+
+>> source setup.sh
+
+Now run the following script
+
+>> python make_schema.py <file_path> <schema>
+Where file_path is the absolute path to one of the files from the dataset you want to upload and schema is the name you will give to the created json file.
+
+
+**Step 2**: create the datasets in the database
+
+Before uploading your files you need to define datasets. Datasets can be defined based on the physics process taken into account for simulation or the primary dataset for data. This step is fairly elastic. As an example, one can define a W+jets dataset and pass the HT/pT bin information as metadata, or generate different datasets based on the HT/pT bin.
+
+To do this run
+
+>> Python createDataset.py <schema> <bucket name> <dataset name>
+
+Schema is the previously created schema json file and dataset name is whatever name you want to give to the dataset, you will be using this name to access the files when running an analysis. 
+
+**Step 3** Uploading
+
+Finally to upload the dataset make sure you are back with uproot 2.8.17
+
+>> pip install uproot==2.8.17 
+
+And run this script:
+
+>>python loadDataset.py  -d <dataset-name> <path to dataset > <top of root tree> <bucket name>
+
+Where <path to dataset> is the full path to the directory containing the root files to be uploaded and <top of root tree> is the top directory inside the root file (it is Events in nanoAOD)
