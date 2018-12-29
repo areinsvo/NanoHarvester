@@ -211,7 +211,10 @@ source setup.sh
 
 Now run the following script
 
->> python make_schema.py <file_path> <schema>
+```bash
+python make_schema.py <file_path> <schema>
+```
+
 Where file_path is the absolute path to one of the files from the dataset you want to upload and schema is the name you will give to the created json file.
 
 
@@ -221,7 +224,9 @@ Before uploading your files you need to define datasets. Datasets can be defined
 
 To do this run
 
->> Python createDataset.py <schema> <bucket name> <dataset name>
+```bash
+python createDataset.py <schema> <bucket name> <dataset name>
+```
 
 Schema is the previously created schema json file and dataset name is whatever name you want to give to the dataset, you will be using this name to access the files when running an analysis. 
 
