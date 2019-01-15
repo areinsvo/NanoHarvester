@@ -193,6 +193,7 @@ pip install uproot==3.3.0
 
 You will create a json file that describes the structure of the input rootfiles. You should expect a different schema for data and MC simulations. Schema can be also different due to specific reasons. For instance, in NanoAOD trigger bits are stored singly and the list of triggers can vary in each file. Taking this into account, you can generate the schema as follows.
 
+
 First, from your home directory in ifdb02,  go to bigdata/ingest/ingestion/ and source the set up script
 ```bash
 source setup.py
