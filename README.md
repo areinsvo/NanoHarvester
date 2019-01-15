@@ -176,40 +176,34 @@ More options of this `crab.py` script can be found with:
 
 ### Upload to the Striped database
 
-To upload datasets on the database ask Igor for an account by email (ivm@fnal.gov). Provide you FNAL username in the request. Input rootfiles need to be copied first the Striped machine ifdb01 and then into the database. The capability to read remotely input rootfiles is currenlty under development.
-
-To the Striped machine you need to have a FNAL computing account. Then:
+To upload datasets on the database ask Igor for an account by email (ivm@fnal.gov). Provide you FNAL username in the request. Then:
 
 ```bash
 kinit FNAL_USERNAME@FNAL.GOV
-ssh FNAL_USERNAME@ifdb01.fnal.gov 
+ssh FNAL_USERNAME@ifdb02.fnal.gov 
 ```
 
-Assuming your files are already copied, you can move forward with the following steps.
+Make sure you have uproot 3.3.0
+
+```bash
+pip install uproot==3.3.0
+```
 
 **Step 1**: generate the input file schema
 
 You will create a json file that describes the structure of the input rootfiles. You should expect a different schema for data and MC simulations. Schema can be also different due to specific reasons. For instance, in NanoAOD trigger bits are stored singly and the list of triggers can vary in each file. Taking this into account, you can generate the schema as follows.
 
-First, from log into ifdb01 and clone the harvester.
 
+First, from your home directory in ifdb02,  go to bigdata/ingest/ingestion/ and source the set up script
 ```bash
-cd $HOME/bigdata/ingestion/uproot/
-git clone https://github.com/CoffeaTeam/CoffeaHarvester.git
-cd CoffeaHarvester/striped
+source setup.py
+```
+then switch into the directory datasets and to the directory belonging to you file format (nanoaod or bacon)
+```bash
+cd $HOME/bigdata/ingest/datasets/yourFileFormat
 ```
 
-To create the schema you need uproot version 3.2.13
 
-```bash
-pip install uproot==3.2.13
-```
-
-And source the scripts
-
-```bash
-source setup.sh
-```
 
 Now run the following script
 
@@ -217,15 +211,19 @@ Now run the following script
 python make_schema.py <file_path> <schema>
 ```
 
-Where file_path is the absolute path to one of the files from the dataset you want to upload and schema is the name you will give to the created json file.
+Where file_path is the absolute path to one of the files from the dataset you want to upload and schema is the name you will give to the created json file. You may use xrootd for the input file
+, the path would be: root://cmseols.fnal.gov//path/to/file/in/eos
 
 
 **Step 2**: create the datasets in the database
 
 Before uploading your files you need to define datasets. Datasets can be defined based on the physics process taken into account for simulation or the primary dataset for data. This step is fairly elastic. As an example, one can define a W+jets dataset and pass the HT/pT bin information as metadata, or generate different datasets based on the HT/pT bin.
 
-To do this run
-
+To do this move switch to tools 
+```bash
+cd ~/bigdata/ingest/tools/ 
+```
+and run
 ```bash
 python createDataset.py <schema> <bucket name> <dataset name>
 ```
@@ -234,23 +232,17 @@ Schema is the previously created schema json file and dataset name is whatever n
 
 **Step 3** Uploading
 
-Finally to upload the dataset make sure you are back with uproot 2.8.17
+To upload the files you will need a list containing the path to the files. This may be local files or files stored at eos. Switch into the ingestion directory (bigdata/ingest/ingestion), you will use the script loadFiles.py
+The minimum parameters you need are
 
 ```bash
-pip install uproot==2.8.17 
+python loadFiles.py  <bucket name> <dataset-name> @<file containing list of files>  # '@' before the name of the file is necessary
 ```
-
-And run this script:
-
+This will load the files with a default column size of 10000 and name them as they are originaly named.
+You can increase the column size with the -n parameter. Also, if files within the same dataset have the same name (for example files from a dataset may be located under dataset/.../0000/nano_1.root and dataset/.../0001/nano_1.root)
+you can use the -p <n> option to add the n directories names previous to the file into its name. (in the previous example 0000 and 0001 would be aded to nano_1.root). This way they can be uploaded into the same dataset.
+To see additional options run
 ```bash
-python loadDataset.py  -d <dataset-name> <path to dataset > <top of root tree> <bucket name>
-```
-Where <path to dataset> is the full path to the directory containing the root files to be uploaded and <top of root tree> is the top directory inside the root file (it is Events in nanoAOD)
-
-If an error occurs during an upload you should remove the dataset and recreate it before re-uploading. To remove a dataset from the database use:
-
-```bash
-python delete_dataset.py <bucket_name> <dataset_name>
+python loadFiles.py
 ```
 
-You might need to run this command more than once, until output displays “0 items removed”
