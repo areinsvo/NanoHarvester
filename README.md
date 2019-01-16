@@ -180,14 +180,77 @@ To upload datasets on the database ask Igor for an account by email (ivm@fnal.go
 
 ```bash
 kinit FNAL_USERNAME@FNAL.GOV
+```
+#### Environment setup
+
+First download miniconda installer (python 2.7 64bit) from https://conda.io/miniconda.html to your coputer and then copy the installer into the ifdb02 computer
+
+```bash
+scp Miniconda2-latest-Linux-x86_64.sh username@ifdb02.fnal.gov: 
+```
+and log in
+```bash
 ssh FNAL_USERNAME@ifdb02.fnal.gov 
 ```
+the Miniconda installer should be at your home directory. Run
 
-Make sure you have uproot 3.3.0
+```bash
+bash Miniconda2-latest-Linux-x86_64.sh
+```
+follow the screen instructions (select yes/ENTER in all cases)
+Now clone the data loading tools (at your home directory ass well)
 
+```bash
+git clone http://cdcvs.fnal.gov/projects/nosql-ldrd bigdata
+```
+change directory into bigdata/ingest folder and untar the couchbase client and python xrootd libraries into the python site-packages directory
+```bash
+cd bigdata/ingest
+tar -xzvf couchbase_python.tar.gz -C ~/miniconda2/lib/python2.7/site-packages/
+tar -xzvf pyxrootd.tar.gz -C ~/miniconda2/lib/python2.7/site-packages/
+```
+
+
+Now set up python with miniconda
+
+```bash
+export PATH=miniconda2/bin:$PATH
+conda create -n py2 python
+```
+(select yes 'y' when asked)
+
+Install uproot 3.3.0
 ```bash
 pip install uproot==3.3.0
 ```
+Change directory into bigdata and run the setup.py script
+```
+cd ~/bigdata/
+python setup.py install
+```
+now switch into the follwing directory
+
+```bash
+cd ~/bigdata/ingest/ingestion
+```
+create a file named setup.py and fill it with the following
+
+```bash
+export STRIPED_HOME=${HOME}/striped_home
+export PYTHONPATH=${HOME}/build/striped:${HOME}/pythreader
+export COUCHBASE_BACKEND_CFG=`pwd`/couchbase.cfg
+```
+create a file named couchbase.cfg whith the following content
+
+```bash
+[CouchBase]
+Username = striped
+Password = Striped501
+Readonly_Username = readonly
+Readonly_Password = StripedReadOnly
+ClusterURL = couchbase://dbdev112,dbdev115?operation_timeout=100
+```
+
 
 **Step 1**: generate the input file schema
 
