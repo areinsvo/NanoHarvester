@@ -219,9 +219,10 @@ conda create -n py2 python
 ```
 (select yes 'y' when asked)
 
-Install uproot 3.3.0
+Install uproot 3.3.0 and lzma tools
 ```bash
 pip install uproot==3.3.0
+conda install -c conda-forge backports.lzma
 ```
 Change directory into bigdata and run the setup.py script
 ```
