@@ -241,7 +241,7 @@ export STRIPED_HOME=${HOME}/striped_home
 export PYTHONPATH=${HOME}/build/striped:${HOME}/pythreader
 export COUCHBASE_BACKEND_CFG=`pwd`/couchbase.cfg
 ```
-create a file named couchbase.cfg whith the following content
+In the same directory create a file named couchbase.cfg whith the following content
 
 ```bash
 [CouchBase]
@@ -251,7 +251,15 @@ Readonly_Username = readonly
 Readonly_Password = StripedReadOnly
 ClusterURL = couchbase://dbdev112,dbdev115?operation_timeout=100
 ```
+With the envirionment set up you may run the following to check if everything is working properly.
 
+```bash
+cd ~/bigdata/ingest/ingestion/
+source setup.py
+cd ../tools 
+python createDataset.py nanoMC2016.json Sandbox user_testDataset
+cd ../ingestion
+python loadFile.py root://cmseos.fnal.gov//store/group/lpccoffea/coffeabeans/nano_2016/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NanoTuples-2016_RunIISummer16MiniAODv2-PUMoriond17_80X_v6-v1/181126_171720/0000/nano_1.root Sandbox user_testDataset
 
 **Step 1**: generate the input file schema
 
