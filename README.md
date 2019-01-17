@@ -319,7 +319,7 @@ python loadFiles.py  <bucket name> <dataset-name> @<file containing list of file
 ```
 This will load the files with a default column size of 10000 and name them as they are originaly named.
 You can increase the column size with the -n parameter. Also, if files within the same dataset have the same name (for example files from a dataset may be located under dataset/.../0000/nano_1.root and dataset/.../0001/nano_1.root)
-you can use the -p <n> option to add the n directories names previous to the file into its name. (in the previous example 0000 and 0001 would be aded to nano_1.root). This way they can be uploaded into the same dataset.
+you can use the -p <n> option to add the n directories names previous to the file into its name. (in the previous example 0000 and 0001 would be aded to nano_1.root). This way they can be uploaded into the same dataset. You can find example file lists uner /data3/fnavarro/exampleUploadFiles
 To see additional options run
 ```bash
 python loadFiles.py
