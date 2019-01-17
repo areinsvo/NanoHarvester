@@ -263,9 +263,6 @@ python loadFile.py root://cmseos.fnal.gov//store/group/lpccoffea/coffeabeans/nan
 If you get no output errors everything is working fine. 
 
 ```bash
-cd ~/bigdata/ingest/tools
-scp yourUserName@cmslpc-sl6.fnal.gov:
-
 ### Uploading Data ##
 Before using any of the following scripts you must run 
 ```bash
