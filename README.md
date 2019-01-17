@@ -257,6 +257,7 @@ With the envirionment set up you may run the following to check if everything is
 cd ~/bigdata/ingest/ingestion/
 source setup.py
 cd ../tools 
+python deleteDataset.py Sandbox user_testDataset
 python createDataset.py nanoMC2016.json Sandbox user_testDataset
 cd ../ingestion
 python loadFile.py root://cmseos.fnal.gov//store/group/lpccoffea/coffeabeans/nano_2016/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NanoTuples-2016_RunIISummer16MiniAODv2-PUMoriond17_80X_v6-v1/181126_171720/0000/nano_1.root Sandbox user_testDataset
