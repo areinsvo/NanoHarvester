@@ -198,7 +198,7 @@ the Miniconda installer should be at your home directory. Run
 bash Miniconda2-latest-Linux-x86_64.sh
 ```
 follow the screen instructions (select yes/ENTER in all cases)
-Now clone the data loading tools (at your home directory ass well)
+Now clone the data loading tools (at your home directory as well)
 
 ```bash
 git clone http://cdcvs.fnal.gov/projects/nosql-ldrd bigdata
