@@ -175,20 +175,21 @@ More options of this `crab.py` script can be found with:
 ```
 
 ### Upload to the Striped database
+***step0*** Getting account in fbd02 computer and setting up environment
 
-To upload datasets on the database ask Igor for an account by email (ivm@fnal.gov). Provide you FNAL username in the request. Then:
+To upload datasets on the database ask Igor for an account on ifdb02 by email (ivm@fnal.gov). Provide you FNAL username in the request. Then:
 
 ```bash
 kinit FNAL_USERNAME@FNAL.GOV
 ```
 #### Environment setup
 
-First download miniconda installer (python 2.7 64bit) from https://conda.io/miniconda.html to your coputer and then copy the installer into the ifdb02 computer
+First download miniconda installer (python 2.7 64bit) from https://conda.io/miniconda.html to your coputer and then copy the installer into the ifdb02 computer. The file will be named Miniconda2-latest-Linux-x86_64.sh
 
 ```bash
 scp Miniconda2-latest-Linux-x86_64.sh username@ifdb02.fnal.gov: 
 ```
-and log in
+then login into ifdb02.
 ```bash
 ssh FNAL_USERNAME@ifdb02.fnal.gov 
 ```
@@ -197,20 +198,17 @@ the Miniconda installer should be at your home directory. Run
 ```bash
 bash Miniconda2-latest-Linux-x86_64.sh
 ```
-follow the screen instructions (select yes/ENTER in all cases)
-Now clone the data loading tools (at your home directory as well)
+follow the screen instructions (select yes/ENTER in all cases). Once that is done, clone the data loading tools (at your home directory as well)
 
 ```bash
 git clone http://cdcvs.fnal.gov/projects/nosql-ldrd bigdata
 ```
-change directory into bigdata/ingest folder and untar the couchbase client and python xrootd libraries into the python site-packages directory
+change directory into bigdata/ingest folder and untar the couchbase client and pyxrootd libraries into the python site-packages directory
 ```bash
 cd bigdata/ingest
 tar -xzvf couchbase_python.tar.gz -C ~/miniconda2/lib/python2.7/site-packages/
 tar -xzvf pyxrootd.tar.gz -C ~/miniconda2/lib/python2.7/site-packages/
 ```
-
-
 Now set up python with miniconda
 
 ```bash
@@ -262,21 +260,33 @@ python createDataset.py nanoMC2016.json Sandbox user_testDataset
 cd ../ingestion
 python loadFile.py root://cmseos.fnal.gov//store/group/lpccoffea/coffeabeans/nano_2016/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NanoTuples-2016_RunIISummer16MiniAODv2-PUMoriond17_80X_v6-v1/181126_171720/0000/nano_1.root Sandbox user_testDataset
 ```
-**Step 1**: generate the input file schema
+If you get no output errors everything is working fine. 
+
+```bash
+cd ~/bigdata/ingest/tools
+scp yourUserName@cmslpc-sl6.fnal.gov:
+
+### Uploading Data ##
+Before using any of the following scripts you must run 
+```bash
+cd ~/bigdata/ingest/ingestion/
+source setup.py
+```
+Finally, you may copy premade schema files from /data3/fnavarro/schemas
+```
+cp -r /data3/fnavarro/schemas ~/bigdata/ingest/tools/
+```
+
+**Step 1**: Generate a dataset schema
 
 You will create a json file that describes the structure of the input rootfiles. You should expect a different schema for data and MC simulations. Schema can be also different due to specific reasons. For instance, in NanoAOD trigger bits are stored singly and the list of triggers can vary in each file. Taking this into account, you can generate the schema as follows.
 
 
-First, from your home directory in ifdb02,  go to bigdata/ingest/ingestion/ and source the set up script
-```bash
-source setup.py
-```
-then switch into the directory datasets and to the directory belonging to you file format (nanoaod or bacon)
+First, switch into 
 ```bash
 cd $HOME/bigdata/ingest/datasets/yourFileFormat
 ```
-
-
+where yourFileFormat is either bacon or NanoAOD
 
 Now run the following script
 
@@ -284,15 +294,14 @@ Now run the following script
 python make_schema.py <file_path> <schema>
 ```
 
-Where file_path is the absolute path to one of the files from the dataset you want to upload and schema is the name you will give to the created json file. You may use xrootd for the input file
-, the path would be: root://cmseols.fnal.gov//path/to/file/in/eos
+Where file_path is the absolute path to one of the files from the dataset you want to upload and schema is the name you will give to the created json file. You may use xrootd for the input file, the path would be: root://cmseols.fnal.gov//path/to/file/in/eos
 
 
-**Step 2**: create the datasets in the database
+**Step 2**: Create the datasets in the database
 
 Before uploading your files you need to define datasets. Datasets can be defined based on the physics process taken into account for simulation or the primary dataset for data. This step is fairly elastic. As an example, one can define a W+jets dataset and pass the HT/pT bin information as metadata, or generate different datasets based on the HT/pT bin.
 
-To do this move switch to tools 
+To do this:
 ```bash
 cd ~/bigdata/ingest/tools/ 
 ```
