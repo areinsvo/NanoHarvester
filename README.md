@@ -322,4 +322,33 @@ To see additional options run
 ```bash
 python loadFiles.py
 ```
+## Loading tools extras ##
+
+**Listing Dataset info**
+A tool you might whant to use to check if a dataset was uploaded properly is listDataset.py under ~/bigdata/ingest/tools/. It is used the following way
+
+```bash
+python listDataset.py [-f|-l] <bucket> <dataset>
+```
+Runing this without the options -f or -l wil output the number of files uploaded, the total number of events, the number of row groups and the missing rowgroups along with some other info. Using -f will list the files and -l will list the files along with the row group id they belong to. 
+
+**Re-runing failed jobs**
+If an upload gets interrupted by any reason you may either continue uploading the files remaining or start from scratch by firsts deleting the dataset and creating it again. To remove a dataset:
+
+```bash
+cd ~/bigdata/ingest/tools/
+python deleteDataset.py <bucket> <dataset>
+```
+you may use listDataset.py to check if it was properly removed. An unexisting dataset should output
+```bash
+0 items removed
+```
+If a dataset upload fails before it is done,  you may view the files that have been uploaded with 
+```bash
+python listDataset.py -f <bucket> <dataset> 
+```
+then remove them from the file list you are using to upload and run loadFiles.py with the same options you where using before.
+**Extra Tip:** If you computer gets temporarily disconected from the internet while an upload was in progress do not interact with the terminal that was doing the job by clicking or typing on it. It is likely this will log you out with a connection error. If left alone it is likely the job will continue when you reconect. 
+
+
 
