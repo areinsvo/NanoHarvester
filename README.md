@@ -316,7 +316,13 @@ You may view available buckets at http://dbdev121.fnal.gov:8091/ui/index.html (u
 
 **Step 3** Load datasets
 
-To upload the files you will need a list containing the path to the files. This may be local files or files stored at eos. Switch into the ingestion directory (bigdata/ingest/ingestion), you will use the script loadFiles.py
+To upload the files you will need a list containing the path to the files. This may be local files or files stored at eos. A script that generates this files is found at
+```bash
+/data3/fnavarro/fileListScripts/
+```
+Instructions on how to use them are found on the README file.
+
+Switch into the ingestion directory (bigdata/ingest/ingestion), you will use the script loadFiles.py
 The minimum parameters you need are
 
 ```bash
