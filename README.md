@@ -177,7 +177,7 @@ More options of this `crab.py` script can be found with:
 ## Dataset Loading Instructions ##
 ### Obtaining an account and setting up environment ###
 
-To upload datasets on the database you need an account at ifdb02. Ask Igor for one by email (ivm@fnal.gov). Provide you FNAL username in the request. Then kinit and log in into ifdb02:
+To upload datasets on the database you need an account at ifdb02. Ask Igor for one by email (ivm@fnal.gov). Provide your FNAL username in the request. Once you have the account kinit and log in into ifdb02:
 ```bash
 kinit FNAL_USERNAME@FNAL.GOV
 ssh FNAL_USERNAME@ifdb02.fnal.gov 
