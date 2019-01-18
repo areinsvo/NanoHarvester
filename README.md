@@ -349,6 +349,7 @@ If a dataset upload fails before it is done,  you may view the files that have b
 python listDataset.py -f <bucket> <dataset> 
 ```
 then remove them from the file list you are using to upload and run loadFiles.py with the same options you were using before.
+
 **Extra Tip:** If you computer gets temporarily disconnected from the internet while an upload was in progress do not interact with the terminal that was doing the job by clicking or typing on it. This will log you out with a connection error. If left alone it is likely the job will continue when you reconnect. 
 
 
