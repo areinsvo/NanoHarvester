@@ -308,7 +308,7 @@ and run
 ```bash
 python createDataset.py <schema> <bucket name> <dataset name>
 ```
-You may view available buckets at http://dbdev121.fnal.gov:8091/ui/index.html (user:admin password:ad___501) clicking at the "Buckets" button at the top left. <schema> would be the is the previously created schema json file and dataset name is whatever name you want to give to the dataset, you will be using this name to access the files when running an analysis. You may obtain premade schemas for nanoAOD datasets from /data3/fnavarro/schemas/. To copy all of them in to your ingestion directory:
+You may view available buckets at http://dbdev121.fnal.gov:8091/ui/index.html (user:admin password:ad___501) clicking at the "Buckets" button at the top left. "<schema>" would be the is the previously created schema json file and dataset name is whatever name you want to give to the dataset, you will be using this name to access the files when running an analysis. You may obtain premade schemas for nanoAOD datasets from /data3/fnavarro/schemas/. To copy all of them in to your ingestion directory:
   
  ```bash
  cp -r /data3/fnavarro/schemas ~/bigdata/ingest/ingestion/
