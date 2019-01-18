@@ -245,8 +245,23 @@ python createDataset.py nanoMC2016.json Sandbox user_testDataset
 cd ../ingestion
 python loadFile.py root://cmseos.fnal.gov//store/group/lpccoffea/coffeabeans/nano_2016/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NanoTuples-2016_RunIISummer16MiniAODv2-PUMoriond17_80X_v6-v1/181126_171720/0000/nano_1.root Sandbox user_testDataset
 ```
+If with the last command you receive an error complaining lzma is not installed do
+```bash
+conda install -c conda-forge backports.lzma
+```
+and re-run 
+```bash
+python loadFile.py root://cmseos.fnal.gov//store/group/lpccoffea/coffeabeans/nano_2016/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NanoTuples-2016_RunIISummer16MiniAODv2-PUMoriond17_80X_v6-v1/181126_171720/0000/nano_1.root Sandbox user_testDataset
+```
 The output should be
 
+```bash
+Using file name: nano_1.root
+No user profile will be created
+Checking if the file is already uploaded
+Found 0 events from this file in the database
+Starting RGID: 0, 3 row groups, average row group size:16649
+```
 
 
 ### Loading data
@@ -255,15 +270,9 @@ Before using any of the following scripts you must run the following once, every
 cd ~/bigdata/ingest/ingestion/
 source setup.py
 ```
-Finally, you may copy premade schema files from /data3/fnavarro/schemas
-```
-cp -r /data3/fnavarro/schemas ~/bigdata/ingest/tools/
-```
-
 **Step 1**: Generate a dataset schema
 
 You will create a json file that describes the structure of the input rootfiles. You should expect a different schema for data and MC simulations. Schema can be also different due to specific reasons. For instance, in NanoAOD trigger bits are stored singly and the list of triggers can vary in each file. Taking this into account, you can generate the schema as follows.
-
 
 First, switch into 
 ```bash
@@ -292,8 +301,11 @@ and run
 ```bash
 python createDataset.py <schema> <bucket name> <dataset name>
 ```
-
-Schema is the previously created schema json file and dataset name is whatever name you want to give to the dataset, you will be using this name to access the files when running an analysis. 
+You may view available buckets at http://dbdev121.fnal.gov:8091/ui/index.html (user:admin password:ad___501) clicking at the "Buckets" button at the top left. <schema> would be the is the previously created schema json file and dataset name is whatever name you want to give to the dataset, you will be using this name to access the files when running an analysis. You may obtain premade schemas for nanoAOD datasets from /data3/fnavarro/schemas/. To copy all of them in to your ingestion directory:
+  
+ ```bash
+ cp -r /data3/fnavarro/schemas ~/bigdata/ingest/ingestion/
+ ```
 
 **Step 3** Uploading
 
@@ -304,8 +316,8 @@ The minimum parameters you need are
 python loadFiles.py  <bucket name> <dataset-name> @<file containing list of files>  # '@' before the name of the file is necessary
 ```
 This will load the files with a default column size of 10000 and name them as they are originaly named.
-You can increase the column size with the -n parameter. You may also give a prefix to the file path you are giving as imput with -p option. Also, if files within the same dataset have the same name (for example files from a dataset may be located under dataset/.../0000/nano_1.root and dataset/.../0001/nano_1.root)
-you can use the -k <n> option to add the n directories names previous to the file into its name. (in the previous example 0000 and 0001 would be aded to nano_1.root). This way they can be uploaded into the same dataset. You can find example file lists under. /data3/fnavarro/exampleUploadFiles
+You can increase the column size with the -n parameter. You may also give a prefix to the file paths at your list with the parameter -p <path-prefix>. Also, if files within the same dataset have the same name (for example files from a dataset may be located under dataset/.../0000/nano_1.root and dataset/.../0001/nano_1.root)
+you can use the -k <n> option to add the n directories  previous to the file into its name. (in the previous example 0000 and 0001 would be aded to nano_1.root. now one would be 0000_nano_1.root and the other 0001_nano_1.root). This way they can be uploaded into the same dataset. You can find example file lists under. /data3/fnavarro/exampleUploadFiles
 To see additional options run
 ```bash
 python loadFiles.py
