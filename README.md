@@ -174,7 +174,7 @@ More options of this `crab.py` script can be found with:
 ./crab.py -h
 ```
 
-## Uploading Data into striped database##
+## Uploading datasets Instructions ##
 ### Obtaining account at ifdb02 and setting up environment ###
 
 To upload datasets on the database you need an account at ifdb02. ask Igor for one by email (ivm@fnal.gov). Provide you FNAL username in the request. Then kinit and log in into ifdb02:
@@ -264,7 +264,7 @@ Starting RGID: 0, 3 row groups, average row group size:16649
 ```
 
 
-## Loading data ##
+### Loading data ###
 
 Before using any of the following scripts you must run the following once, everytime you log in
 ```bash
