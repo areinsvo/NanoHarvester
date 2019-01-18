@@ -214,7 +214,13 @@ Change directory into bigdata and run the setup.py script
 cd ~/bigdata/
 python setup.py install
 ```
-Now switch into the follwing directory
+and copy the following directory into your home. 
+
+```bash
+cp -r /data3/fnavarro/build ~/
+```
+
+Switch into the follwing directory
 
 ```bash
 cd ~/bigdata/ingest/ingestion
