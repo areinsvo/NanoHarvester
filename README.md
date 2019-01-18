@@ -317,11 +317,12 @@ python loadFiles.py  <bucket name> <dataset-name> @<file containing list of file
 ```
 This will load the files with a default column size of 10000 and name them as they are originaly named.
 You can increase the column size with the -n parameter. You may also give a prefix to the file paths at your list with the parameter -p <path-prefix>. Also, if files within the same dataset have the same name (for example files from a dataset may be located under dataset/.../0000/nano_1.root and dataset/.../0001/nano_1.root)
-you can use the -k <n> option to add the n directories  previous to the file into its name. (in the previous example 0000 and 0001 would be aded to nano_1.root. now one would be 0000_nano_1.root and the other 0001_nano_1.root). This way they can be uploaded into the same dataset. You can find example file lists under. /data3/fnavarro/exampleUploadFiles
+you can use the -k <n> option to add the n directories  previous to the file into its name. (in the previous example 0000 and 0001 would be aded to nano_1.root. now one would be 0000_nano_1.root and the other 0001_nano_1.root). This way they can be uploaded into the same dataset. You can find example file lists under. /data3/fnavarro/exampleUploadFiles.  
 To see additional options run
 ```bash
 python loadFiles.py
 ```
+You can see a complete list of uploaded datasets at http://dbweb6.fnal.gov:9090/striped_130tb/app/datasets
 ## Loading tools extras ##
 
 **Listing Dataset info**
@@ -348,7 +349,7 @@ If a dataset upload fails before it is done,  you may view the files that have b
 python listDataset.py -f <bucket> <dataset> 
 ```
 then remove them from the file list you are using to upload and run loadFiles.py with the same options you where using before.
-**Extra Tip:** If you computer gets temporarily disconected from the internet while an upload was in progress do not interact with the terminal that was doing the job by clicking or typing on it. It is likely this will log you out with a connection error. If left alone it is likely the job will continue when you reconect. 
+**Extra Tip:** If you computer gets temporarily disconected from the internet while an upload was in progress do not interact with the terminal that was doing the job by clicking or typing on it. This will log you out with a connection error. If left alone it is likely the job will continue when you reconect. 
 
 
 
