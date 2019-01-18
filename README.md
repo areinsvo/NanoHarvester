@@ -174,73 +174,59 @@ More options of this `crab.py` script can be found with:
 ./crab.py -h
 ```
 
-### Upload to the Striped database
-***step0*** Getting account in fbd02 computer and setting up environment
+### Uploading Data into striped database
+#### Obtaining account at ifdb02 and setting up environment
 
-To upload datasets on the database ask Igor for an account on ifdb02 by email (ivm@fnal.gov). Provide you FNAL username in the request. Then:
-
+To upload datasets on the database you need an account at ifdb02. ask Igor for one by email (ivm@fnal.gov). Provide you FNAL username in the request. Then kinit and log in into ifdb02:
 ```bash
 kinit FNAL_USERNAME@FNAL.GOV
-```
-#### Environment setup
-
-First download miniconda installer (python 2.7 64bit) from https://conda.io/miniconda.html to your coputer and then copy the installer into the ifdb02 computer. The file will be named Miniconda2-latest-Linux-x86_64.sh
-
-```bash
-scp Miniconda2-latest-Linux-x86_64.sh username@ifdb02.fnal.gov: 
-```
-then login into ifdb02.
-```bash
 ssh FNAL_USERNAME@ifdb02.fnal.gov 
 ```
-the Miniconda installer should be at your home directory. Run
-
+At your home directory in ifdb02 download and install Miniconda2 
 ```bash
+wget https://repo.anaconda.com/miniconda/Miniconda2-latest-Linux-x86_64.sh
 bash Miniconda2-latest-Linux-x86_64.sh
 ```
-follow the screen instructions (select yes/ENTER in all cases). Once that is done, clone the data loading tools (at your home directory as well)
-
+Follow the screen instructions (select yes/ENTER in all cases). Once that is done, clone the data loading tools at your home directory
 ```bash
 git clone http://cdcvs.fnal.gov/projects/nosql-ldrd bigdata
 ```
-change directory into bigdata/ingest folder and untar the couchbase client and pyxrootd libraries into the python site-packages directory
+Change directory into bigdata/ingest folder and untar the couchbase client and pyxrootd libraries into the python site-packages directory
 ```bash
-cd bigdata/ingest
+cd ~/bigdata/ingest
 tar -xzvf couchbase_python.tar.gz -C ~/miniconda2/lib/python2.7/site-packages/
 tar -xzvf pyxrootd.tar.gz -C ~/miniconda2/lib/python2.7/site-packages/
 ```
 Now set up python with miniconda
 
 ```bash
-export PATH=miniconda2/bin:$PATH
+export PATH=~/miniconda2/bin:$PATH
 conda create -n py2 python
 ```
 (select yes 'y' when asked)
 
-Install uproot 3.3.0 and lzma tools
+Install uproot 3.3.0 
 ```bash
 pip install uproot==3.3.0
-conda install -c conda-forge backports.lzma
 ```
 Change directory into bigdata and run the setup.py script
 ```
 cd ~/bigdata/
 python setup.py install
 ```
-now switch into the follwing directory
+Now switch into the follwing directory
 
 ```bash
 cd ~/bigdata/ingest/ingestion
 ```
-create a file named setup.py and fill it with the following
+Create a file named setup.py and fill it with the following
 
 ```bash
 export STRIPED_HOME=${HOME}/striped_home
 export PYTHONPATH=${HOME}/build/striped:${HOME}/pythreader
 export COUCHBASE_BACKEND_CFG=`pwd`/couchbase.cfg
 ```
-In the same directory create a file named couchbase.cfg whith the following content
-
+In the same directory create a file named couchbase.cfg whith the following 
 ```bash
 [CouchBase]
 Username = striped
@@ -250,7 +236,6 @@ Readonly_Password = StripedReadOnly
 ClusterURL = couchbase://dbdev112,dbdev115?operation_timeout=100
 ```
 With the envirionment set up you may run the following to check if everything is working properly.
-
 ```bash
 cd ~/bigdata/ingest/ingestion/
 source setup.py
@@ -260,11 +245,12 @@ python createDataset.py nanoMC2016.json Sandbox user_testDataset
 cd ../ingestion
 python loadFile.py root://cmseos.fnal.gov//store/group/lpccoffea/coffeabeans/nano_2016/DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/NanoTuples-2016_RunIISummer16MiniAODv2-PUMoriond17_80X_v6-v1/181126_171720/0000/nano_1.root Sandbox user_testDataset
 ```
-If you get no output errors everything is working fine. 
+The output should be
 
-```bash
-### Uploading Data ##
-Before using any of the following scripts you must run 
+
+
+### Loading data
+Before using any of the following scripts you must run the following once, everytime you log in
 ```bash
 cd ~/bigdata/ingest/ingestion/
 source setup.py
