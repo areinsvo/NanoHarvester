@@ -174,8 +174,8 @@ More options of this `crab.py` script can be found with:
 ./crab.py -h
 ```
 
-## Uploading datasets Instructions ##
-### Obtaining account at ifdb02 and setting up environment ###
+## Dataset Loading Instructions ##
+### Obtaining an account and setting up environment ###
 
 To upload datasets on the database you need an account at ifdb02. ask Igor for one by email (ivm@fnal.gov). Provide you FNAL username in the request. Then kinit and log in into ifdb02:
 ```bash
@@ -308,7 +308,7 @@ You may view available buckets at http://dbdev121.fnal.gov:8091/ui/index.html (u
  cp -r /data3/fnavarro/schemas ~/bigdata/ingest/ingestion/
  ```
 
-**Step 3** Uploading
+**Step 3** Load datasets
 
 To upload the files you will need a list containing the path to the files. This may be local files or files stored at eos. Switch into the ingestion directory (bigdata/ingest/ingestion), you will use the script loadFiles.py
 The minimum parameters you need are
