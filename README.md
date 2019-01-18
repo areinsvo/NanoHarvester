@@ -174,8 +174,8 @@ More options of this `crab.py` script can be found with:
 ./crab.py -h
 ```
 
-### Uploading Data into striped database
-#### Obtaining account at ifdb02 and setting up environment
+## Uploading Data into striped database##
+### Obtaining account at ifdb02 and setting up environment ###
 
 To upload datasets on the database you need an account at ifdb02. ask Igor for one by email (ivm@fnal.gov). Provide you FNAL username in the request. Then kinit and log in into ifdb02:
 ```bash
