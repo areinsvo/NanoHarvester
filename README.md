@@ -264,7 +264,8 @@ Starting RGID: 0, 3 row groups, average row group size:16649
 ```
 
 
-### Loading data
+## Loading data ##
+
 Before using any of the following scripts you must run the following once, everytime you log in
 ```bash
 cd ~/bigdata/ingest/ingestion/
@@ -326,6 +327,7 @@ You can see a complete list of uploaded datasets at http://dbweb6.fnal.gov:9090/
 ## Loading tools extras ##
 
 **Listing Dataset info**
+
 A tool you might want to use to check if a dataset was uploaded properly is listDataset.py under ~/bigdata/ingest/tools/. It is used the following way
 
 ```bash
@@ -334,6 +336,7 @@ python listDataset.py [-f|-l] <bucket> <dataset>
 Running this without the options -f or -l will output the number of files uploaded, the total number of events, the number of row groups and the missing rowgroups along with some other info. Using -f will list the files and -l will list the files along with the row group id they belong to. 
 
 **Re-running failed jobs**
+
 If an upload gets interrupted by any reason you may either continue uploading the files remaining or start from scratch by firsts deleting the dataset and creating it again. To remove a dataset:
 
 ```bash
