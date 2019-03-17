@@ -142,7 +142,7 @@ source /cvmfs/cms.cern.ch/crab3/crab.sh
 For MC:
 
 ```bash
-python crab.py -p mc_NANO_[year].py -o /store/group/lpccoffea/coffeabeans/102X/nano_[year] -t NanoTuples-[year] -i mc_[year].txt  --send-external -s EventAwareLumiBased -n 50000 --work-area crab_projects_mc_[year] --dryrun
+python crab.py -p mc_NANO_[year].py -o /store/group/lpccoffea/coffeabeans/102X/nano_[year] -t NanoTuples-[year] -i miniaod[year].txt  --send-external -s EventAwareLumiBased -n 50000 --work-area crab_projects_mc_[year] --dryrun
 ```
 
 For data:
