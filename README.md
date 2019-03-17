@@ -3,25 +3,15 @@
 ### Set up CMSSW
 
 ```
-cmsrel CMSSW_9_4_11_cand2
-cd CMSSW_9_4_11_cand2/src
+cmsrel CMSSW_10_2_10
+cd CMSSW_10_2_10/src
 cmsenv
 ```
 
-### Hack NanoAOD framework (when running over 94X MiniAODv3)
+### Get NanoAOD framework
 
 ```bash
-git cms-addpkg PhysicsTools/NanoAOD
-
-# comment out L183 of PhysicsTools/NanoAOD/python/nano_cff.py
-run2_nanoAOD_94X2016.toModify(process, nanoAOD_addDeepFlavourTagFor94X2016) 
-```
-
-### Apply changes on PhysicsTools/NanoAOD
-
-```bash
-# this one contains the updated EGM corrections for electron/photons (**only needed for legacy 2016**)
-git cms-merge-topic -u hqucms:deep-boosted-jets-94X-custom-nano
+git cms-merge-topic cms-nanoAOD:master-102X 
 ```
 
 ### Get customized NanoAOD producers
@@ -33,13 +23,35 @@ git clone https://github.com/CoffeaTeam/CoffeaHarvester PhysicsTools/NanoTuples
 ### Compile
 
 ```bash
-scram b -j16
+scram b -j12
 ```
-### Test
+### Get config files
 
 ```bash
-cd PhysicsTools/NanoTuples/test
+cd PhysicsTools/NanoTuples/crab
 ```
+This directory will contain the config files to use for 2016 to 2018 data and mc NanoAOD production in CMSSW_10_2_10. 
+Test one of the config files with the following command:
+```bash
+cmsRun mc_NANO_2016.py
+```
+
+For completeness, the cmsDriver commands used to generate the config files are listed below. You should not need to run these commands yourself. These follow the instructions on https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookNanoAOD#Recipe_for_the_current_HEAD_of_N and https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVAnalysisSummaryTable.
+
+2016 MC (10_2_X):
+```bash
+cmsDriver.py mc -n -1 --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions 94X_mcRun2_asymptotic_v3 --step NANO --era Run2_2016,run2_nanoAOD_94X2016 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeMC --filein file:step-1.root --fileout file:nano.root --no_exec  --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))"
+```
+2017 MC (10_2_X):
+```bash
+cmsDriver.py mc -n -1 --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions 94X_mc2017_realistic_v17 --step NANO --era Run2_2017,run2_nanoAOD_94XMiniAODv2 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeMC --filein file:step-1.root --fileout file:nano.root --no_exec  --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))"
+```
+2018 MC (10_2_X):
+```bash
+cmsDriver.py mc -n -1 --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions 102X_upgrade2018_realistic_v12 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeMC --filein file:step-1.root --fileout file:nano.root --no_exec  --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))"
+```
+
+### Deprecated cmsDriver commands
 MC (80X, MiniAODv2):
 
 ```bash
@@ -86,22 +98,7 @@ cmsDriver.py data -n 100 --data --eventcontent NANOAOD --datatier NANOAOD --cond
 
 ```
 
-### Production
-
-**Step 0**: switch to the crab production directory and set up grid proxy, CRAB environment, etc.
-
-```bash
-cd $CMSSW_BASE/PhysicsTools/NanoTuples/crab
-# set up grid proxy
-voms-proxy-init -rfc -voms cms --valid 168:00
-# set up CRAB env (must be done after cmsenv)
-source /cvmfs/cms.cern.ch/crab3/crab.sh
-```
-
-**Step 1**: generate the python config file with `cmsDriver.py` with the following commands:
-
 MC (80X, MiniAODv2):
-
 ```bash
 cmsDriver.py mc -n -1 --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions 94X_mcRun2_asymptotic_v2 --step NANO --nThreads 4 --era Run2_2016,run2_miniAOD_80XLegacy --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeMC --filein file:step-1.root --fileout file:nano.root --no_exec
 ```
@@ -111,6 +108,7 @@ Data (`23Sep2016` ReReco):
 ```bash
 cmsDriver.py data -n -1 --data --eventcontent NANOAOD --datatier NANOAOD --conditions 94X_dataRun2_v4 --step NANO --nThreads 4 --era Run2_2016,run2_miniAOD_80XLegacy --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData_METMuEGClean --filein file:step-1.root --fileout file:nano.root --no_exec
 ```
+
 MC (94X, re-miniAOD 12Apr2018):
 
 ```bash
@@ -123,32 +121,48 @@ Data (94X, re-miniAOD 31Mar2018):
 ```bash
 cmsDriver.py data -n -1 --data --eventcontent NANOAOD --datatier NANOAOD --conditions 94X_dataRun2_v6 --step NANO --nThreads 4 --era Run2_2017,run2_miniAOD_94XFall17 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData --filein  file:step-1.root --fileout file:nano.root --no_exec
 ```
-Global tags and eras are gotten from: https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookMiniAOD
 
+### Production
+
+**Step 0**: switch to the crab production directory and set up grid proxy, CRAB environment, etc.
+
+```bash
+cd $CMSSW_BASE/src/PhysicsTools/NanoTuples/crab
+cmsenv
+# set up grid proxy
+voms-proxy-init -rfc -voms cms --valid 168:00
+# set up CRAB env (must be done after cmsenv)
+source /cvmfs/cms.cern.ch/crab3/crab.sh
+```
+
+**Step 1**: Choose the right python config file. This is the -p argument to crab.py. (See section above for how the configs were generated)
 
 **Step 2**: use the `crab.py` script to submit the CRAB jobs:
 
 For MC:
 
 ```bash
-python crab.py -p mc_NANO.py -o /store/group/lpccoffea/coffeabeans/nano_mc_[version] -t NanoTuples-[version] -i mc_[ABC].txt --num-cores 4 --send-external -s EventAwareLumiBased -n 50000 --work-area crab_projects_mc_[ABC] --dryrun
+python crab.py -p mc_NANO_[year].py -o /store/group/lpccoffea/coffeabeans/102X/nano_[year] -t NanoTuples-[year] -i mc_[year].txt  --send-external -s EventAwareLumiBased -n 50000 --work-area crab_projects_mc_[year] --dryrun
 ```
 
 For data:
 
 ```bash
-python crab.py -p data_NANO.py -o /store/group/lpccoffea/coffeabeans/nano_data_[version] -t NanoTuples-[version] -i data.txt --num-cores 4 --send-external -s EventAwareLumiBased -n 50000 --work-area crab_projects_data --dryrun
+python crab.py -p data_NANO_[year].py -o /store/group/lpccoffea/coffeabeans/102X/nano_[year] -t NanoTuples-[year] -i data_[year].txt --send-external -s EventAwareLumiBased -n 50000 --work-area crab_projects_data_[year] --dryrun
 ```
 
-A JSON file can be applied for data samples with the `-j` options. By default, we use the golden JSON for 2016:
-
+A JSON file can be applied for data samples with the `-j` options. Make sure to apply the appropriate golden JSON based on year:
+For 2016:
 ```
 https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt
 ```
-For 2017, the recommended JSON is:
-
+For 2017:
 ```
 https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON.txt
+```
+For 2018:
+```bash
+https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt
 ```
 
 For updated information, check: https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmV2017Analysis
@@ -160,7 +174,7 @@ These command will perform a "dryrun" to print out the CRAB configuration files.
 The status of the CRAB jobs can be checked with:
 
 ```bash
-./crab.py --status --work-area crab_projects_[ABC]
+./crab.py --status --work-area crab_projects_[mc/data]_[year]
 ```
 
 Note that this will also resubmit failed jobs automatically.
@@ -173,6 +187,8 @@ More options of this `crab.py` script can be found with:
 ```bash
 ./crab.py -h
 ```
+
+
 
 ## Dataset Loading Instructions ##
 ### Obtaining an account and setting up environment ###
