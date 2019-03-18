@@ -1,0 +1,2 @@
+/MET/Run2018D-PromptReco-v2/MINIAOD
+/EGamma/Run2018D-PromptReco-v2/MINIAOD

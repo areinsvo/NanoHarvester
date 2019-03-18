@@ -51,6 +51,26 @@ cmsDriver.py mc -n -1 --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --con
 cmsDriver.py mc -n -1 --mc --eventcontent NANOAODSIM --datatier NANOAODSIM --conditions 102X_upgrade2018_realistic_v12 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeMC --filein file:step-1.root --fileout file:nano.root --no_exec  --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))"
 ```
 
+2016 Data (10_2_X):
+```bash
+cmsDriver.py data --data --eventcontent NANOAOD --datatier NANOAOD --conditions 94X_dataRun2_v10 --step NANO --era Run2_2016,run2_nanoAOD_94X2016 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData --fileout file:nano.root --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))" --no_exec 
+```
+
+2017 Data (10_2_X):
+```bash
+cmsDriver.py data --data --eventcontent NANOAOD --datatier NANOAOD --conditions 94X_dataRun2_v11 --step NANO --era Run2_2017,run2_nanoAOD_94XMiniAODv2 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData --fileout file:nano.root --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))" --no_exec 
+```
+
+2018 Data Rereco for eras ABC (10_2_X):
+```bash
+cmsDriver.py data --data --eventcontent NANOAOD --datatier NANOAOD --conditions 102X_dataRun2_Sep2018Rereco_v1 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData --fileout file:nano.root --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))" --no_exec 
+```
+
+2018 Data Prompt Reco for era D (10_2_X):
+```bash
+cmsDriver.py data --data --eventcontent NANOAOD --datatier NANOAOD --conditions 102X_dataRun2_Prompt_v11 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData --fileout file:nano.root --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))" --no_exec 
+```
+
 ### Deprecated cmsDriver commands
 MC (80X, MiniAODv2):
 
@@ -135,7 +155,7 @@ voms-proxy-init -rfc -voms cms --valid 168:00
 source /cvmfs/cms.cern.ch/crab3/crab.sh
 ```
 
-**Step 1**: Choose the right python config file. This is the -p argument to crab.py. (See section above for how the configs were generated)
+**Step 1**: Choose the right python config file. This is the -p argument to crab.py. (See section above for how the configs were generated). Note that you need a different config file for Run2018ABC vs Run2018D. The eras for 2018 are also separated into two input text files with the dataset names.
 
 **Step 2**: use the `crab.py` script to submit the CRAB jobs:
 
@@ -148,10 +168,10 @@ python crab.py -p mc_NANO_[year].py -o /store/group/lpccoffea/coffeabeans/102X/n
 For data:
 
 ```bash
-python crab.py -p data_NANO_[year].py -o /store/group/lpccoffea/coffeabeans/102X/nano_[year] -t NanoTuples-[year] -i data_[year].txt --send-external -s EventAwareLumiBased -n 50000 --work-area crab_projects_data_[year] --dryrun
+python crab.py -p data_NANO_[year][era if using 2018].py -o /store/group/lpccoffea/coffeabeans/102X/nano_[year] -t NanoTuples-[year] -i miniaod[year][era if using 2018]_data.txt --send-external -s EventAwareLumiBased -n 50000 --work-area crab_projects_data_[year] --dryrun
 ```
 
-A JSON file can be applied for data samples with the `-j` options. Make sure to apply the appropriate golden JSON based on year:
+A JSON file can be applied for data samples with the `-j` options. Make sure to apply the appropriate golden JSON based on year. These can be found in the /files folder:
 For 2016:
 ```
 https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt
