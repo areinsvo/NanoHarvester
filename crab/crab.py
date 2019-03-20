@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 from __future__ import print_function
+from multiprocessing import Process
 
 import argparse
 import re
 import logging
 
 from CRABAPI.RawCommand import crabCommand
+#from CRABClient.ClientExceptions import ClientException
+from httplib import HTTPException
 
 
 def natural_sort(l):
@@ -292,7 +295,17 @@ def main():
                 print(cfg)
                 continue
             logger.info('Submitting dataset %s' % dataset)
-            crabCommand('submit', config=cfg)
+            p = Process(target=submit, args=(cfg,))
+            p.start()
+            p.join()
+
+def submit(config):
+    try:
+        crabCommand('submit', config = config)
+    except HTTPException as hte:
+        print('Failed submitting task: %s' %(hte.headers))
+    except ClientException as cle:
+        print('Failed submitting task: %s' %(cle))
 
 
 if __name__ == '__main__':
