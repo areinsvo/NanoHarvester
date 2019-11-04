@@ -1,4 +1,4 @@
-# CoffeaHarvester (NanoAOD coffeabeans producer)
+# NanoHarvester (NanoAOD coffeabeans producer)
 
 ### Set up CMSSW
 
@@ -17,7 +17,7 @@ git cms-merge-topic cms-nanoAOD:master-102X
 ### Get customized NanoAOD producers
 
 ```bash
-git clone https://github.com/CoffeaTeam/CoffeaHarvester PhysicsTools/NanoTuples
+git clone https://github.com/LPC-DM/NanoHarvester.git PhysicsTools/NanoTuples
 ```
 
 ### Compile
