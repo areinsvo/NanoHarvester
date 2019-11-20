@@ -38,7 +38,7 @@ def nanoTuples_customizeCommon(process, runOnMC):
 def nanoTuples_customizeData(process):
     process = nanoTuples_customizeCommon(process, False)
 
-    process.NANOAODoutput.fakeNameForCrab = cms.untracked.bool(True)  # hack for crab publication
+#    process.NANOAODoutput.fakeNameForCrab = cms.untracked.bool(True)  # hack for crab publication
     return process
 
 
@@ -65,7 +65,7 @@ def nanoTuples_customizeData_METMuEGClean(process):
     del process.slimmedMETsMuEGClean.caloMET
     process.metTable.src = cms.InputTag('slimmedMETsMuEGClean')
 
-    process.NANOAODoutput.fakeNameForCrab = cms.untracked.bool(True)  # hack for crab publication
+#    process.NANOAODoutput.fakeNameForCrab = cms.untracked.bool(True)  # hack for crab publication
     return process
 
 
@@ -80,5 +80,5 @@ def nanoTuples_customizeData_METMuEGClean_saveTriggerPrescale(process):
 def nanoTuples_customizeMC(process):
     process = nanoTuples_customizeCommon(process, True)
 
-    process.NANOAODSIMoutput.fakeNameForCrab = cms.untracked.bool(True)  # hack for crab publication
+#    process.NANOAODSIMoutput.fakeNameForCrab = cms.untracked.bool(True)  # hack for crab publication
     return process
