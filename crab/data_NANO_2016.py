@@ -21,12 +21,13 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(1)
+    input = cms.untracked.int32(10000)
 )
 
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:data_NANO_2016.py_PAT.root'),
+    fileNames = cms.untracked.vstring('root://cmsxrootd.fnal.gov//store/data/Run2016H/MET/MINIAOD/17Jul2018-v2/270000/F8E09530-B1BA-E811-8A50-441EA171A206.root'),
+#    fileNames = cms.untracked.vstring('file:data_NANO_2016.py_PAT.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 
