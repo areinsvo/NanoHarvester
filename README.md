@@ -38,7 +38,7 @@ cmsDriver.py mc_NANO_20162017.py -n -1 --mc --eventcontent NANOAODSIM --datatier
 --conditions 102X_mcRun2_asymptotic_v7 --step NANO --era Run2_2016,run2_nanoAOD_94X2016 \
 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeMC \
 --filein file:step-1.root --fileout file:nano.root \
---no_exec  --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))"
+--no_exec
 ```
 
 2018 MC (RunIIAutumn18):
@@ -47,7 +47,7 @@ cmsDriver.py mc_NANO_2018.py -n -1 --mc --eventcontent NANOAODSIM --datatier NAN
 --conditions 102X_upgrade2018_realistic_v20 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1  \
 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeMC \
 --filein file:step-1.root --fileout file:nano.root \
---no_exec  --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))"
+--no_exec
 ```
 
 2016 Data :
@@ -55,7 +55,8 @@ cmsDriver.py mc_NANO_2018.py -n -1 --mc --eventcontent NANOAODSIM --datatier NAN
 cmsDriver.py data_NANO_2016.py --data --eventcontent NANOAOD --datatier NANOEDMAOD \
 --conditions 102X_dataRun2_v12 --step NANO --era Run2_2016,run2_nanoAOD_94X2016 \
 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData \
---fileout file:nano.root --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))" --no_exec
+--fileout file:nano.root \
+--no_exec
 ```
 
 2017 Data :
@@ -63,7 +64,8 @@ cmsDriver.py data_NANO_2016.py --data --eventcontent NANOAOD --datatier NANOEDMA
 cmsDriver.py data_NANO_2017.py --data --eventcontent NANOAOD --datatier NANOEDMAOD \
 --conditions 102X_dataRun2_v12 --step NANO --era Run2_2017,run2_nanoAOD_94XMiniAODv2 \
 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData \
---fileout file:nano.root --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))" --no_exec
+--fileout file:nano.root \
+--no_exec
 ```
 
 2018 Data Rereco for eras ABC :
@@ -71,7 +73,8 @@ cmsDriver.py data_NANO_2017.py --data --eventcontent NANOAOD --datatier NANOEDMA
 cmsDriver.py data_NANO_2018ABC.py --data --eventcontent NANOAOD --datatier NANOEDMAOD \
 --conditions 102X_dataRun2_v12 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1 \
 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData \
---fileout file:nano.root --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))" --no_exec
+--fileout file:nano.root \
+--no_exec
 ```
 
 2018 Data Prompt Reco for era D :
@@ -79,7 +82,8 @@ cmsDriver.py data_NANO_2018ABC.py --data --eventcontent NANOAOD --datatier NANOE
 cmsDriver.py data_NANO_2018D --data --eventcontent NANOAOD --datatier NANOEDMAOD \
 --conditions 102X_dataRun2_Prompt_v15 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1 \
 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData \
---fileout file:nano.root --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)))" --no_exec
+--fileout file:nano.root \ 
+--no_exec
 ```
 
 ### Production
