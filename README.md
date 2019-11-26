@@ -27,15 +27,24 @@ cd PhysicsTools/NanoTuples/crab
 This directory contains the config files to use for 2016 to 2018 data and mc NanoAOD production in CMSSW_10_2_18. 
 Test one of the config files with the following command:
 ```bash
-cmsRun mc_NANO_20162017.py
+cmsRun mc_NANO_2016.py
 ```
 
 For completeness, the cmsDriver commands used to generate the config files are listed below. You should not need to run these commands yourself. These follow the instructions on https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookNanoAOD#Recipe_for_the_current_HEAD_of_N, https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVDataReprocessingNanoAODv6, and https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVAnalysisSummaryTable.
 
 2016 and 2017 MC (RunIISummer16):
 ```bash
-cmsDriver.py mc_NANO_20162017.py -n -1 --mc --eventcontent NANOAODSIM --datatier NANOAODSIM \
+cmsDriver.py mc_NANO_2016.py -n -1 --mc --eventcontent NANOAODSIM --datatier NANOAODSIM \
 --conditions 102X_mcRun2_asymptotic_v7 --step NANO --era Run2_2016,run2_nanoAOD_94X2016 \
+--customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeMC \
+--filein file:step-1.root --fileout file:nano.root \
+--no_exec
+```
+
+2017 MC (RunIIFall17):
+```bash
+cmsDriver.py mc_NANO_2017.py -n -1 --mc --eventcontent NANOAODSIM --datatier NANOAODSIM \
+--conditions 102X_mc2017_realistic_v7 --step NANO --era Run2_2017,run2_nanoAOD_94XMiniAODv2 \
 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeMC \
 --filein file:step-1.root --fileout file:nano.root \
 --no_exec
