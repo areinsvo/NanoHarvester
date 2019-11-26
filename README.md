@@ -61,7 +61,7 @@ cmsDriver.py mc_NANO_2018.py -n -1 --mc --eventcontent NANOAODSIM --datatier NAN
 
 2016 Data :
 ```bash
-cmsDriver.py data_NANO_2016.py --data --eventcontent NANOAOD --datatier NANOEDMAOD \
+cmsDriver.py data_NANO_2016.py --data --eventcontent NANOAOD --datatier NANOAOD \
 --conditions 102X_dataRun2_v12 --step NANO --era Run2_2016,run2_nanoAOD_94X2016 \
 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData \
 --fileout file:nano.root \
@@ -70,7 +70,7 @@ cmsDriver.py data_NANO_2016.py --data --eventcontent NANOAOD --datatier NANOEDMA
 
 2017 Data :
 ```bash
-cmsDriver.py data_NANO_2017.py --data --eventcontent NANOAOD --datatier NANOEDMAOD \
+cmsDriver.py data_NANO_2017.py --data --eventcontent NANOAOD --datatier NANOAOD \
 --conditions 102X_dataRun2_v12 --step NANO --era Run2_2017,run2_nanoAOD_94XMiniAODv2 \
 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData \
 --fileout file:nano.root \
@@ -79,7 +79,7 @@ cmsDriver.py data_NANO_2017.py --data --eventcontent NANOAOD --datatier NANOEDMA
 
 2018 Data Rereco for eras ABC :
 ```bash
-cmsDriver.py data_NANO_2018ABC.py --data --eventcontent NANOAOD --datatier NANOEDMAOD \
+cmsDriver.py data_NANO_2018ABC.py --data --eventcontent NANOAOD --datatier NANOAOD \
 --conditions 102X_dataRun2_v12 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1 \
 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData \
 --fileout file:nano.root \
@@ -88,7 +88,7 @@ cmsDriver.py data_NANO_2018ABC.py --data --eventcontent NANOAOD --datatier NANOE
 
 2018 Data Prompt Reco for era D :
 ```bash
-cmsDriver.py data_NANO_2018D --data --eventcontent NANOAOD --datatier NANOEDMAOD \
+cmsDriver.py data_NANO_2018D --data --eventcontent NANOAOD --datatier NANOAOD \
 --conditions 102X_dataRun2_Prompt_v15 --step NANO --era Run2_2018,run2_nanoAOD_102Xv1 \
 --customise PhysicsTools/NanoTuples/nanoTuples_cff.nanoTuples_customizeData \
 --fileout file:nano.root \ 
