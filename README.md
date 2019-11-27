@@ -32,7 +32,7 @@ cmsRun mc_NANO_2016.py
 
 For completeness, the cmsDriver commands used to generate the config files are listed below. You should not need to run these commands yourself. These follow the instructions on https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookNanoAOD#Recipe_for_the_current_HEAD_of_N, https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVDataReprocessingNanoAODv6, and https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVAnalysisSummaryTable.
 
-2016 and 2017 MC (RunIISummer16):
+2016 MC (RunIISummer16):
 ```bash
 cmsDriver.py mc_NANO_2016.py -n -1 --mc --eventcontent NANOAODSIM --datatier NANOAODSIM \
 --conditions 102X_mcRun2_asymptotic_v7 --step NANO --era Run2_2016,run2_nanoAOD_94X2016 \
