@@ -69,6 +69,7 @@ def createConfig(args, dataset):
     config.JobType.sendExternalFolder = args.send_external
     config.JobType.numCores = args.num_cores
     config.JobType.maxMemoryMB = args.max_memory
+    config.JobType.allowUndistributedCMSSW = True
 
     config.Data.inputDBS = 'global'
     config.Data.inputDataset = dataset
