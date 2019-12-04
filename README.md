@@ -8,6 +8,13 @@ cd CMSSW_10_2_18/src
 cmsenv
 ```
 
+### Change CMSSW to enable LZ4 compression
+
+```
+git cms-addpkg PhysicsTools/NanoAOD
+cp /uscms_data/d3/matteoc/CMSSW_10_2_18/src/PhysicsTools/NanoAOD/plugins/NanoAODOutputModule.cc PhysicsTools/NanoAOD/plugins/NanoAODOutputModule.cc
+```
+
 ### Get customized NanoAOD producers
 
 ```bash
