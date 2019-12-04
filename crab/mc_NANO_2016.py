@@ -45,7 +45,7 @@ process.configurationMetadata = cms.untracked.PSet(
 # Output definition
 
 process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
-    compressionAlgorithm = cms.untracked.string('LZMA'),
+    compressionAlgorithm = cms.untracked.string('LZ4'),
     compressionLevel = cms.untracked.int32(9),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('NANOAODSIM'),
