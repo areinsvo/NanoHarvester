@@ -21,12 +21,12 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(1)
+    input = cms.untracked.int32(100)
 )
 
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:data_NANO_2018D_PAT.root'),
+    fileNames = cms.untracked.vstring('/store/data/Run2018D/MET/MINIAOD/PromptReco-v2/000/325/170/00000/442FA2B4-4070-D74C-AEA1-589F48767A9F.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 

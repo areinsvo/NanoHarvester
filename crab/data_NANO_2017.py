@@ -26,7 +26,7 @@ process.maxEvents = cms.untracked.PSet(
 
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:data_NANO_2017.py_PAT.root'),
+    fileNames = cms.untracked.vstring('/store/data/Run2017C/MET/MINIAOD/31Mar2018-v1/30000/B8FCEEFC-EB38-E811-ADE1-A0369F83639C.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 
