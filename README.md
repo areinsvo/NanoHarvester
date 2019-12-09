@@ -193,4 +193,13 @@ More options of this `crab.py` script can be found with:
 ./crab.py -h
 ```
 
+### Merging:
+```bash
+cd merging
+python haddCoffeaBeans.py [input_dir] [output_dir] [average number of events in input files (corresponds to splitting value if using EventAwareLumiBased] [goal number of events per output file]
+``
 
+For example:
+```bash
+python haddCoffeaBeans.py /store/group/lpccoffea/coffeabeans/NanoAODv6/nano_2018/MET/NanoTuples-2018_Run2018C-17Sep2018-v1/191206_204134/0000 /store/group/lpccoffea/coffeabeans/test 50 540
+```
